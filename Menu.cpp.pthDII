@@ -1,0 +1,16 @@
+#include "Menu.h"
+#include "Game.h"
+
+extern Game* game;
+
+Menu::Menu() : Scene(){}
+
+void Menu::createPage()
+{
+
+    button = new Button("Start");
+    scene->addItem(button);
+    Scene::jumpPage(button, game);
+};
+
+

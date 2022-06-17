@@ -1,0 +1,24 @@
+#include <QApplication>
+#include "Menu.h"
+#include "Game.h"
+#include "Scene.h"
+
+QGraphicsScene* Scene::scene;
+Status<int>* score = new Status<int>("score", 10);
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    Scene::scene = new QGraphicsScene();
+
+    Menu menu;
+    menu.createPage();
+    Game game;
+
+    Scene::jumpPage(menu.button, &game);
+    game.show();
+
+
+    return a.exec();
+}

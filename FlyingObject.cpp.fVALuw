@@ -1,0 +1,5 @@
+
+FlyingObject::FlyingObject(int health, int velocity, string pic, QGraphicsItem *parent)
+{
+
+}

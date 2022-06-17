@@ -1,0 +1,25 @@
+#include "mainwindow.h"
+
+#include <QApplication>
+#include "Menu.h"
+#include "Game.h"
+#include "Scene.h"
+
+QGraphicsScene* Scene::scene;
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    Scene::scene = new QGraphicsScene();
+    Scene* scene = new Scene();
+    scene->show();
+
+    Menu menu;
+    menu.createPage();
+    Game game;
+
+    Scene::jumpPage(menu.button, &game);
+
+    return a.exec();
+}

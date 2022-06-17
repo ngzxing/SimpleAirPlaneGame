@@ -1,0 +1,22 @@
+#include "LossPage.h"
+#include <QGraphicsTextItem>
+#include "Button.h"
+#include "Menu.h"
+#include "Game.h"
+
+extern Menu* menu;
+extern Game* game;
+
+void LossPage::createPage()
+{
+    QGraphicsTextItem* text = new QGraphicsTextItem();
+    text->setPlainText(QString("You Loss"));
+    text->setDefaultTextColor(Qt::red);
+    text->setFont(QFont("times", 30));
+    scene->addItem(text);
+
+    Button* button = new Button("Back");
+    scene->addItem(button);
+    jumpPage(button, game);
+
+}

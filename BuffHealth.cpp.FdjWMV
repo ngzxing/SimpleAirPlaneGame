@@ -1,0 +1,48 @@
+#include "BuffHealth.h"
+#include "Player.h"
+
+
+BuffHealth::BuffHealth(int degree_, int life, double speed, string pic) : FlyingObject(life, speed, pic), degree(degree_){
+
+    setScale(0.20);
+}
+
+void BuffHealth::movement()
+{
+    setPos(x(), y() + velocity->getFlag()*10);
+
+    if (collide())
+        return;
+
+    if(y()>=650){
+
+        scene()->removeItem(this);
+        delete this;
+        return;
+    }
+
+}
+
+bool BuffHealth::collide()
+{
+    QList<QGraphicsItem* >colliding = collidingItems();
+    int n = colliding.size();
+
+    for(int i=0; i<n; i++){
+
+        if(typeid(*colliding[i]) == typeid(Player)){
+
+            *(static_cast<Player* >(colliding[i])->getHealth())+=degree;
+            scene()->removeItem(colliding[i]);
+            scene()->removeItem(this);
+
+            delete this;
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+

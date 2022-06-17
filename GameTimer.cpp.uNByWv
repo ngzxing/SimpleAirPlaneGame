@@ -1,0 +1,17 @@
+#include "GameTimer.h"
+#include "Status.h"
+#include <cmath>
+
+extern Status<int>* score;
+
+GameTimer::GameTimer() : QTimer()
+{
+
+
+}
+
+void GameTimer::startCount()
+{
+
+    start(5000/(score->getFlag()/10 + 1));
+}

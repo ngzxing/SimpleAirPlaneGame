@@ -1,0 +1,31 @@
+#include <QApplication>
+#include "Menu.h"
+#include "Game.h"
+#include "Scene.h"
+#include "LossPage.h"
+#include "WinPage.h"
+
+QGraphicsScene* Scene::scene;
+QGraphicsView* Scene::view;
+Status<int>* score = new Status<int>("score", 3);
+Menu* menu;
+Game* game;
+LossPage* lossPage;
+WinPage* winPage;
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    Scene::scene = new QGraphicsScene();
+    Scene::view = new QGraphicsView();
+    menu = new Menu();
+    game = new Game();
+    lossPage = new LossPage();
+    winPage = new WinPage();
+
+    menu->createPage();
+    Scene::view->show();
+
+    return a.exec();
+}

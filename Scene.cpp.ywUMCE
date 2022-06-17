@@ -1,0 +1,39 @@
+#include "Scene.h"
+#include "Player.h"
+
+Scene::Scene(QWidget *parent)
+{
+    scene -> setSceneRect(0, 0, 1000, 650);
+}
+
+void Scene::createPage(){}
+
+void Scene::setBackground(const QColor& color)
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(color);
+    setBackgroundBrush(brush);
+}
+
+void Scene::setBackgroundPic(string bgPic){
+
+    setBackgroundBrush( QBrush(QImage( (":" + bgPic).c_str() )));
+}
+
+void Scene::jumpPage(Button *button, Scene *scene)
+{
+    QObject::connect(button, SIGNAL(clicked()), scene, SLOT(newPage()));
+}
+
+void Scene::newPage()
+{
+    scene->clear();
+    createPage();
+}
+
+
+
+
+
+

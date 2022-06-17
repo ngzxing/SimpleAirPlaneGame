@@ -1,0 +1,19 @@
+#ifndef BULLETPLAYER_H
+#define BULLETPLAYER_H
+
+#include "FlyingObject.h"
+#include "Status.h"
+
+class BulletPlayer : public FlyingObject{
+
+public:
+    BulletPlayer(string pic, int attack_ , int speed);
+    void movement();
+    void collide();
+
+private:
+    Status<int>* attack;
+};
+
+
+#endif // BULLETPLAYER_H

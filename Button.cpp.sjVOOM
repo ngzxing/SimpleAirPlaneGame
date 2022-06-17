@@ -1,0 +1,42 @@
+#include "Button.h"
+
+Button::Button(string name, QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent)
+{
+    setRect(50,50,150,100);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkCyan);
+    setBrush(brush);
+
+    text = new QGraphicsTextItem(name.c_str(), this);
+    text->setPos( (rect().width() - text->boundingRect().width())/2, (rect().height() - text->boundingRect().height())/2 );
+    text->setFont(QFont("time",16));
+
+    setAcceptHoverEvents(true);
+}
+
+void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit clicked();
+}
+
+void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::cyan);
+    setBrush(brush);
+}
+
+void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkCyan);
+    setBrush(brush);
+}
+
+void Button::clicked(){};
+
+
+

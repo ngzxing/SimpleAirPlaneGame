@@ -1,0 +1,12 @@
+#ifndef LOSSPAGE_H
+#define LOSSPAGE_H
+
+#include "Scene.h"
+class LossPage : public Scene{
+
+public:
+    void createPage();
+};
+
+
+#endif // LOSSPAGE_H

@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>image/Aircraft.png</file>
+        <file>image/Aircraft2.png</file>
+        <file>image/Aircraft3.png</file>
+        <file>image/AirCraftGrey.png</file>
+        <file>image/backgound.jfif</file>
+        <file>image/bd0d204506c6fc6d55642383fba048fd4db11b27.jpg</file>
+        <file>image/bg.png</file>
+        <file>image/laserBullet.png</file>
+        <file>image/loo.png</file>
+        <file>image/rx.png</file>
+        <file>image/Smoke.png</file>
+        <file>image/Gay_Pride_Flag.png</file>
+        <file>image/buffHealth.png</file>
+    </qresource>
+</RCC>
