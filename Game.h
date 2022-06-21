@@ -4,8 +4,11 @@
 #include "Scene.h"
 #include "Enemies.h"
 #include "BuffHealth.h"
+#include "BuffVelocity.h"
+#include "BuffBullet.h"
 #include <QObject>
 #include "Status.h"
+#include "Player.h"
 
 class Game : public Scene{
 
@@ -21,6 +24,8 @@ public slots:
     // call something out;
     void spawn();
     void callBuffHealth();
+    void callBuffVelocity();
+    void callBuffBullet();
     void JumpByTrigger();
 
 private:
@@ -29,7 +34,10 @@ private:
 
     Enemies* enemy; 
     BuffHealth* buffHealth;
-    QTimer* timerEnemies, *timerBuffHealth, *timerGameOver;
+    BuffVelocity* buffVelocity;
+    BuffBullet* buffBullet;
+    QTimer* timerEnemies, *timerBuffHealth, *timerBuffVelocity, *timerBuffBullet, *timerGameOver;
+    Player* player;
 
 };
 

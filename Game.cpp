@@ -1,8 +1,8 @@
 #include "Game.h"
-#include "Player.h"
 #include "LossPage.h"
 #include "WinPage.h"
 #include <cmath>
+
 
 extern Status<int>* score;
 extern LossPage* lossPage;
@@ -13,7 +13,7 @@ Game::Game() : Scene(){}
 void Game::createPage()
 {
     setBackgroundPic("/images/image/Gay_Pride_Flag.png");
-    Player* player = new Player("/images/image/rx.png", 1);
+    player = new Player("/images/image/rx.png", 1);
     player->setPos(500,650 - player->boundingRect().height());
     scene->addItem(player);
 
@@ -37,6 +37,14 @@ void Game::createPage()
     connect(timerBuffHealth, SIGNAL(timeout()), this, SLOT(callBuffHealth()));
     timerBuffHealth->start(20000);
 
+    timerBuffVelocity = new QTimer();
+    connect(timerBuffVelocity, SIGNAL(timeout()), this, SLOT(callBuffVelocity()));
+    timerBuffVelocity->start(20000);
+
+    timerBuffBullet = new QTimer();
+    connect(timerBuffBullet, SIGNAL(timeout()), this, SLOT(callBuffBullet()));
+    timerBuffBullet->start(20000);
+
     detectTrigger();
 }
 
@@ -49,7 +57,7 @@ void Game::spawn()
     enemy->move();
 
     timerEnemies->stop();
-    timerEnemies->start(5000/(score->getFlag()/ 10 + 1));
+    timerEnemies->start(5000/sqrt(score->getFlag()/ 10 + 1 ));
 
 
 }
@@ -59,17 +67,31 @@ void Game::callBuffHealth()
     buffHealth = new BuffHealth(1, 0.1, "/images/image/buffHealth.png", 0.2);
     scene->addItem(buffHealth);
     buffHealth->move();
+    
+    timerBuffHealth->stop();
+    timerBuffHealth->start(20000/sqrt(score->getFlag()/ 10 + 1));
 
 }
 
 void Game::callBuffVelocity()
-{
-
+{   
+    buffVelocity = new BuffVelocity(1, 0.1, "/images/image/buffHealth.png", 0.2);
+    scene->addItem(buffVelocity);
+    buffVelocity->move();
+    
+    timerBuffHealth->stop();
+    timerBuffHealth->start(20000/sqrt(score->getFlag()/ 10 + 1));
+    
 }
 
 void Game::callBuffBullet()
 {
-
+    buffBullet = new BuffBullet(1, 0.1, "/images/image/buffHealth.png", 0.2);
+    scene->addItem(buffBullet);
+    buffBullet->move();
+    
+    timerBuffBullet->stop();
+    timerBuffBullet->start(20000/sqrt(score->getFlag()/ 10 + 1));
 }
 
 void Game::detectTrigger()
@@ -84,6 +106,10 @@ void Game::cleanClock()
     scene->clear();
     timerBuffHealth->stop();
     delete timerBuffHealth;
+    timerBuffBullet->stop();
+    delete timerBuffBullet;
+    timerBuffVelocity->stop();
+    delete timerBuffVelocity;
     timerEnemies->stop();
     delete timerEnemies;
     timerGameOver->stop();
@@ -92,7 +118,7 @@ void Game::cleanClock()
 
 void Game::JumpByTrigger()
 {
-    if(score->getFlag() <=0){
+    if( (score->getFlag() <=0) || (player->getHealth()->getFlag() <=0) ){
 
         cleanClock();
         lossPage->createPage();
