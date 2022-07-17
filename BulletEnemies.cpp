@@ -1,8 +1,9 @@
 #include "BulletEnemies.h"
 #include "Player.h"
 
-BulletEnemies::BulletEnemies(string pic, int attack_, double speed) : FlyingObject(0, speed, pic)
+BulletEnemies::BulletEnemies(string pic, int attack_, double speed, double scale_) : FlyingObject(0, speed, pic, scale_)
 {
+    setScale(scale);
     attack = new Status<int>("attack", attack_);
     rotatePic();
 }
@@ -17,7 +18,7 @@ void BulletEnemies::movement()
     }
 
 
-    if(y()>=650){
+    if(y()>=810){
 
         scene()->removeItem(this);
         delete this;
@@ -50,12 +51,19 @@ BulletEnemies *BulletEnemies::selectBullet(int index)
 
     if(index == 1){
 
-        bullet = new BulletEnemies("/images/image/Smoke.png", 1, 0.2);
+        bullet = new BulletEnemies("/images/image/Smoke.png", 1, 0.2, 1);
         return bullet;
     }
     else if(index==2){
 
-        bullet = new BulletEnemies("/images/image/laserBullet.png", 2, 0.01);
+        bullet = new BulletEnemies("/images/image/laserBullet.png", 2, 0.25,0.07);
+        bullet->rotatePic();
+
+        return bullet;
+    }
+    else if(index==3){
+
+        bullet = new BulletEnemies("/images/image/bullet.png", 3, 0.4,0.1);
         bullet->rotatePic();
 
         return bullet;
@@ -64,6 +72,12 @@ BulletEnemies *BulletEnemies::selectBullet(int index)
 
         return NULL;
     }
+}
+
+
+BulletEnemies::~BulletEnemies()
+{
+    delete attack;
 }
 
 

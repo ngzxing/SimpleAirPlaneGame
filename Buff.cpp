@@ -2,12 +2,11 @@
 #include "Player.h"
 
 
-Buff::Buff(int degree_, double speed, string pic, double scale) : FlyingObject(0, speed, pic), degree(degree_){
+Buff::Buff(int degree_, double speed, string pic, double scale) : FlyingObject(0, speed, pic, scale), degree(degree_){
 
+    int randPos = rand()%int(1440-boundingRect().width()*scale);
+    setPos(randPos,-1*boundingRect().height()*scale);
     setScale(scale);
-    int randPos = rand()%700;
-    setPos(randPos,-50);
-    setScale(0.2);
 }
 
 void Buff::movement()
@@ -17,7 +16,7 @@ void Buff::movement()
     if (collide())
         return;
 
-    if(y()>=650){
+    if(y()>=810){
 
         scene()->removeItem(this);
         delete this;
@@ -47,6 +46,11 @@ bool Buff::collide()
     return 0;
 }
 
-void Buff::changeOfBuff(QGraphicsItem* collides){};
+Buff::~Buff()
+{
+
+}
+
+
 
 

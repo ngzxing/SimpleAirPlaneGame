@@ -11,10 +11,10 @@ public:
     bool collide();
 
     static BulletEnemies *selectBullet(int index);
+    ~BulletEnemies();
 
 private:
-    BulletEnemies(string pic, int attack_ , double speed);
-
+    BulletEnemies(string pic, int attack_, double speed, double scale_);
     Status<int>* attack;
 
 };

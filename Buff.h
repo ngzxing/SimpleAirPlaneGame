@@ -9,11 +9,11 @@ public:
     Buff(int degree_ = 0, double speed = 0, string pic = "/", double scale = 1);
     void movement();
     bool collide();
-    virtual void changeOfBuff(QGraphicsItem* collides);
+    virtual void changeOfBuff(QGraphicsItem* collides) = 0;
+    virtual ~Buff();
 
 protected:
     int degree;
-
 };
 
 #endif // BUFF_H

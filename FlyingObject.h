@@ -15,18 +15,21 @@ class FlyingObject : public QObject, public QGraphicsPixmapItem{
 public:
 
 
-    FlyingObject(int life, double speed, string pic, QGraphicsItem* parent = NULL);
+    FlyingObject(int life, double speed, string pic, double scale_, QGraphicsItem* parent = NULL);
     void move();
-    virtual bool collide();
+    virtual bool collide() = 0;
+    double getScale() const;
+    virtual ~FlyingObject();
 
 public slots:
 
-    virtual void movement();
+    virtual void movement() = 0;
 
 protected:
     void rotatePic();
     Status<int>* health;
     Status<double>* velocity;
+    double scale;
 
 };
 

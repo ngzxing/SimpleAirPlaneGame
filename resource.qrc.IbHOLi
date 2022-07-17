@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>image/Aircraft.png</file>
+        <file>image/Aircraft2.png</file>
+        <file>image/Aircraft3.png</file>
+        <file>image/AirCraftGrey.png</file>
+        <file>image/backgound.jfif</file>
+        <file>image/bd0d204506c6fc6d55642383fba048fd4db11b27.jpg</file>
+        <file>image/bg.png</file>
+        <file>image/loo.png</file>
+        <file>image/rx.png</file>
+        <file>image/Smoke.png</file>
+        <file>image/Gay_Pride_Flag.png</file>
+        <file>image/buffHealth.png</file>
+        <file>image/STAR_WARS.gif</file>
+        <file>image/VICTORY.gif</file>
+        <file>image/YOU_LOSS.gif</file>
+        <file>image/game.gif</file>
+        <file>image/laserBullet.png</file>
+        <file>image/bullet_buff.png</file>
+        <file>image/health_buff.png</file>
+        <file>image/speed_buff.png</file>
+        <file>image/player.png</file>
+        <file>image/bullet.png</file>
+        <file>image/enem1.png</file>
+        <file>image/enem2.png</file>
+        <file>image/enem3.png</file>
+        <file>image/bottonStart1.png</file>
+        <file>image/bottonStart2.png</file>
+        <file>image/bottonBack1.png</file>
+        <file>image/bottonBack2.png</file>
+        <file>image/score_health.gif</file>
+    </qresource>
+</RCC>

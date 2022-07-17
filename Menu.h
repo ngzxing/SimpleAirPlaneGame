@@ -10,6 +10,7 @@ public:
 
     Menu();
     void createPage();
+    ~Menu();
 
     Button* button;
 };

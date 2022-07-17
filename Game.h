@@ -10,6 +10,7 @@
 #include "Status.h"
 #include "Player.h"
 
+
 class Game : public Scene{
 
     Q_OBJECT
@@ -18,6 +19,7 @@ public:
 
     Game();
     void createPage();
+    ~Game();
 
 
 public slots:

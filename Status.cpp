@@ -27,7 +27,13 @@ void Status<dataType>::setTextFont(int x , int y, const QColor& color, int fontS
 template<typename dataType>
 void Status<dataType>::showOnScreen()
 {
-    setPlainText( QString((name+": ").c_str()) + QString::number(flag) );
+    setPlainText( QString::number(flag) );
+}
+
+template<typename dataType>
+Status<dataType>::~Status()
+{
+
 }
 
 template<typename dataType>

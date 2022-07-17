@@ -4,17 +4,15 @@
 
 extern Status<int>* score;
 
-Enemies::Enemies(int life, double speed, string pic) : FlyingObject(life, speed, pic) {
+Enemies::Enemies(int life, double speed, string pic, double scale_, double emitTime, int bulletIndex_) : FlyingObject(life, speed, pic, scale_), bulletIndex(bulletIndex_) {
 
-    int randPos = rand()%700;
-    setPos(randPos,-50);
-    setScale(0.8);
+    int randPos = rand()%int(1440 - boundingRect().width()*scale);
+    setPos(randPos,-1*boundingRect().height()*scale);
+    setScale(scale);
 
     QTimer* timer = new QTimer();
+    timer->start(emitTime);
     connect(timer, SIGNAL(timeout()), this, SLOT(emitBullet()));
-    timer->start(500);
-
-    //rotatePic();
 }
 
 void Enemies::movement()
@@ -47,7 +45,6 @@ void Enemies::movement()
                 scene()->removeItem(colliding[i]);
                 scene()->removeItem(this);
 
-
                 delete colliding[i];
                 delete this;
             }
@@ -63,7 +60,7 @@ void Enemies::movement()
     }
 
 
-    if(y()>=650){
+    if(y()>=810){
 
         *score-=1;
         score->showOnScreen();
@@ -73,21 +70,30 @@ void Enemies::movement()
     }
 }
 
+bool Enemies::collide()
+{
+    return 1;
+}
+
 Enemies *Enemies::selectEnemies(int index)
 {
     Enemies* enemies;
 
     if(index == 1){
 
-        enemies = new Enemies(2, 0.1, "/images/image/loo.png");
-        enemies->bullet = BulletEnemies::selectBullet(1);
+        enemies = new Enemies(3, 0.1, "/images/image/enem1.png", 0.2, 2500, 1);
 
         return enemies;
 
     }else if(index == 2){
 
-        enemies = new Enemies(2, 0.1, "/images/image/loo.png");
-        enemies->bullet = BulletEnemies::selectBullet(2);
+        enemies = new Enemies(5, 0.15, "/images/image/enem2.png", 0.2, 2000, 2);
+
+        return enemies;
+    }
+    else if(index == 3){
+
+        enemies = new Enemies(8, 0.20, "/images/image/enem3.png", 0.2, 1750, 3);
 
         return enemies;
     }
@@ -97,12 +103,20 @@ Enemies *Enemies::selectEnemies(int index)
     }
 }
 
+
+Enemies::~Enemies()
+{
+
+}
+
 void Enemies::emitBullet()
 {
-    bullet = BulletEnemies::selectBullet(1);
+    bullet = BulletEnemies::selectBullet(bulletIndex);
     scene()->addItem(bullet);
-    bullet->setPos(x()+ (boundingRect().width()-bullet->boundingRect().width())/2, y() + boundingRect().height());
+    bullet->setPos(x()+ (boundingRect().width()*scale-bullet->boundingRect().width()*bullet->getScale())/2, y() + boundingRect().height()*scale);
     bullet->move();
 }
+
+
 
 

@@ -13,9 +13,10 @@ public:
     Status<int> *getAttack();
 
     static BulletPlayer* selectBullet(int index);
+    ~BulletPlayer();
 
 private:
-    BulletPlayer(string pic, int attack_ , double speed);
+    BulletPlayer(string pic, int attack_, double speed, double scale_);
     Status<int>* attack;
 };
 

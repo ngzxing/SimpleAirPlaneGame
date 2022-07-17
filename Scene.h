@@ -18,8 +18,8 @@ public:
 
     //create page related method
     Scene(QWidget* parent = 0);
-    virtual void createPage();
-
+    virtual void createPage() = 0;
+    virtual ~Scene();
 
 
 public slots:
@@ -30,6 +30,7 @@ protected:
     void setBackground(const QColor& color);
     void setBackgroundPic(string bgPic);
     void addPic(string pic, int x, int y, double scale);
+    void addAnm(string pic, int x =0 , int y=0, double width = 1440, double height = 810);
     void addText(string text, int x, int y, const QColor& color, string font, int fontSize);
 
 };

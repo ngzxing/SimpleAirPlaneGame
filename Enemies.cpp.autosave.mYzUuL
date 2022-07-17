@@ -1,0 +1,126 @@
+#include "Enemies.h"
+#include "Player.h"
+#include <QTimer>
+
+extern Status<int>* score;
+
+Enemies::Enemies(int life, double speed, string pic, double scale_) : FlyingObject(life, speed, pic, scale_) {
+
+    int randPos = rand()%int(1440 - boundingRect().width()*scale);
+    setPos(randPos,-1*boundingRect().height()*scale);
+    setScale(scale);
+
+    QTimer* timer = new QTimer();
+    timer->start(1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(emitBullet()));
+
+    rotatePic();
+}
+
+void Enemies::movement()
+{
+    setPos(x(), y()+velocity->getFlag()*10);
+
+    QList<QGraphicsItem* > colliding = collidingItems();
+    int n = colliding.size();
+    for(int i=0; i<n; i++){
+
+        if( typeid(*(colliding[i])) == typeid(Player) ){
+
+            *(static_cast<Player*>(colliding[i])->getHealth())-=1;
+            static_cast<Player*>(colliding[i])->getHealth()->showOnScreen();
+
+            scene()->removeItem(this);
+            delete this;
+
+            return;
+       }
+       else if( typeid(*(colliding[i])) == typeid(BulletPlayer)){
+
+            *health -= (static_cast<BulletPlayer*>(colliding[i])->getAttack()->getFlag());
+            if(health->getFlag() <=0){
+
+                *score+=1;
+                score->showOnScreen();
+
+
+                scene()->removeItem(colliding[i]);
+                scene()->removeItem(this);
+
+
+                delete colliding[i];
+                delete this;
+            }
+            else{
+
+                scene()->removeItem(colliding[i]);
+                delete colliding[i];
+            }
+
+
+            return;
+       }
+    }
+
+
+    if(y()>=810){
+
+        *score-=1;
+        score->showOnScreen();
+
+        scene()->removeItem(this);
+        delete this;
+    }
+}
+
+bool Enemies::collide()
+{
+    return 1;
+}
+
+Enemies *Enemies::selectEnemies(int index)
+{
+    Enemies* enemies;
+
+    if(index == 1){
+
+        enemies = new Enemies(3, 0.1, "/images/image/enem1.png", 0.2);
+        enemies->bullet = BulletEnemies::selectBullet(1);
+
+        return enemies;
+
+    }else if(index == 2){
+
+        enemies = new Enemies(5, 0.15, "/images/image/enem2.png", 0.2);
+        enemies->bullet = BulletEnemies::selectBullet(2);
+
+        return enemies;
+    }
+    else if(index == 3){
+        
+        enemies = new Enemies(8, 0.25, "/images/image/enem2.png", 0.2);
+        enemies->bullet = BulletEnemies::selectBullet(2);
+
+        return enemies;
+    }
+    else{
+
+        return NULL;
+    }
+}
+
+
+Enemies::~Enemies()
+{
+
+}
+
+void Enemies::emitBullet()
+{
+    bullet = BulletEnemies::selectBullet(1);
+    scene()->addItem(bullet);
+    bullet->setPos(x()+ (boundingRect().width()*scale-bullet->boundingRect().width()*bullet->getScale())/2, y() + boundingRect().height()*scale);
+    bullet->move();
+}
+
+

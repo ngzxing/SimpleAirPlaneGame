@@ -1,0 +1,34 @@
+#include "Menu.h"
+#include "Game.h"
+#include <QMovie>
+#include <QLabel>
+#include <QLineEdit>
+
+extern Game* game;
+
+Menu::Menu() : Scene(){}
+
+void Menu::createPage()
+{
+
+    button = new Button("Start", 100, 100, 100, 100, "darkCyan", "black", "times", 16);
+    scene->addItem(button); // add buttom onto scene
+    //setBackgroundPic("/images/image/intro_scene.gif");
+
+    QLabel *gif_anim = new QLabel();
+    QMovie *movie = new QMovie("/images/image/gaming_scene.mp4");
+    gif_anim->setMovie(movie);
+    gif_anim->setGeometry(0,0,100,100);
+    movie->start();
+    QGraphicsProxyWidget *proxy = scene->addWidget(gif_anim);
+
+
+    Scene::jumpPage(button, game);
+}
+
+Menu::~Menu()
+{
+    scene->clear();
+};
+
+

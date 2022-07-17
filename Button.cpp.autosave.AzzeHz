@@ -1,0 +1,43 @@
+#include "Button.h"
+
+Button::Button(string name, double scale, int x, int y, const QColor& fontColor, string font, int fontSize, QGraphicsItem* parent)
+{
+    setPixmap(QPixmap( (":" + pic).c_str() ));
+    setScale(scale);
+
+    text = new QGraphicsTextItem(name.c_str(), this);
+    text->setFont(QFont(font.c_str(), fontSize));
+    text->setDefaultTextColor(fontColor);
+    text->setPos( (rect().width() - text->boundingRect().width())/2+rect().x(), (rect().height() - text->boundingRect().height())/2+rect().y());
+
+    setAcceptHoverEvents(true);
+}
+
+void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit clicked();
+}
+
+void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::cyan);
+    setBrush(brush);
+}
+
+void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkCyan);
+    setBrush(brush);
+}
+
+Button::~Button()
+{
+    delete text;
+}
+
+
+

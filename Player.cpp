@@ -1,6 +1,9 @@
 #include "Player.h"
+#include <QGraphicsTextItem>
+#include <QString>
 
-Player::Player(string pic, double scale, QGraphicsItem* parent)
+extern Status<int>* score;
+Player::Player(string pic, double scale_, QGraphicsItem* parent) : bulletIndex(3), scale(scale_)
 {
     setPixmap(QPixmap( (":" + pic).c_str() ));
     setScale(scale);
@@ -9,36 +12,64 @@ Player::Player(string pic, double scale, QGraphicsItem* parent)
     setFocus();
 
     health = new Status<int>("health", 10);
-    score = new Status<int>("score", 10);
     velocity = new Status<double>("velocity", 10);
-    bulletIndex = 1;
+    //bulletSound = new QMediaPlayer();
+    //bulletSound->setMedia(QUrl("qrc:/sounds/sound/gun.mp3"));
+
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
     if( event->key() == Qt::Key_Right){
 
-        setPos(x()+velocity->getFlag(), y());
+        if(x()+boundingRect().width()*scale<1440){
+
+            setPos(x()+velocity->getFlag(), y());
+        }
     }
     else if( event->key() == Qt::Key_Left){
 
-        setPos(x()-velocity->getFlag(), y());
+        if(x()>0){
+
+            setPos(x()-velocity->getFlag(), y());
+        }
     }
     else if( event->key() == Qt::Key_Space){
 
         bullet = BulletPlayer::selectBullet(bulletIndex);
         bullet->move();
-        bullet->setPos(x()+(boundingRect().width() - bullet->boundingRect().width())/2, y());
+        bullet->setPos(x()+(boundingRect().width()*scale - bullet->boundingRect().width()*bullet->getScale())/2, y());
+
+        /*
+        if(bulletSound->state() == QMediaPlayer::PlayingState){
+
+            bulletSound->setPosition(0);
+        }
+        else if(bulletSound->state() == QMediaPlayer::StoppedState){
+
+            bulletSound->play();
+        }*/
 
         scene()->addItem(bullet);
     }
     else if( event->key() == Qt::Key_Up ){
 
-        setPos(x(), y()-velocity->getFlag());
+        if(y()>0){
+
+            setPos(x(), y()-velocity->getFlag());
+        }
     }
     else if( event->key() == Qt::Key_Down){
 
-        setPos(x(), y()+velocity->getFlag());
+        if(y()+boundingRect().height()*scale<810){
+
+            setPos(x(), y()+velocity->getFlag());
+        }
+
+    }
+    else if( event->key() == Qt::Key_1){
+
+        *score +=1;
     }
 }
 
@@ -52,14 +83,27 @@ Status<double> *Player::getVelocity()
     return velocity;
 }
 
-Status<int> *Player::getScore()
-{
-    return score;
-}
-
-int Player::getBulletIndex()
+int Player::getBulletIndex() const
 {
     return bulletIndex;
+}
+
+double Player::getScale() const
+{
+
+    return scale;
+}
+
+void Player::changeBulletIndex(int index)
+{
+    bulletIndex = index;
+}
+
+
+Player::~Player()
+{
+    delete health;
+    delete velocity;
 }
 
 

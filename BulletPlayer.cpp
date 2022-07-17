@@ -2,8 +2,9 @@
 #include "Enemies.h"
 using namespace std;
 
-BulletPlayer::BulletPlayer(string pic, int attack_ , double speed) : FlyingObject(0, speed, pic)
+BulletPlayer::BulletPlayer(string pic, int attack_, double speed, double scale_) : FlyingObject(0, speed, pic,scale_)
 {
+    setScale(scale);
     attack = new Status<int>("attack", attack_);
 }
 
@@ -34,12 +35,19 @@ BulletPlayer *BulletPlayer::selectBullet(int index)
 
     if(index == 1){
 
-        bullet = new BulletPlayer("/images/image/Smoke.png", 1, 0.2);
+        bullet = new BulletPlayer("/images/image/Smoke.png", 1, 0.2, 1);
         return bullet;
     }
     else if(index==2){
 
-        bullet = new BulletPlayer("/images/image/laserBullet.png", 2, 0.01);
+        bullet = new BulletPlayer("/images/image/laserBullet.png",2, 0.25, 0.07);
+        bullet->rotatePic();
+
+        return bullet;
+    }
+    else if(index==3){
+
+        bullet = new BulletPlayer("/images/image/bullet.png", 3, 0.3,0.1);
         bullet->rotatePic();
 
         return bullet;
@@ -48,6 +56,11 @@ BulletPlayer *BulletPlayer::selectBullet(int index)
 
         return NULL;
     }
+}
+
+BulletPlayer::~BulletPlayer()
+{
+    delete attack;
 }
 
 

@@ -1,0 +1,22 @@
+#include "WinPage.h"
+#include "Menu.h"
+
+extern Menu* menu;
+
+WinPage::WinPage()
+{
+
+}
+
+void WinPage::createPage()
+{
+    button = new Button("Back", 267, 150, 1000, 810-150-75, "darkCyan", "black", "times", 16);
+    addAnm("/images/image/VICTORY.gif");
+    scene->addItem(button);
+    jumpPage(button, menu);
+}
+
+WinPage::~WinPage()
+{
+    scene->clear();
+}

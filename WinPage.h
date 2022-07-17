@@ -9,6 +9,7 @@ class WinPage : public Scene{
 public:
     WinPage();
     void createPage();
+    ~WinPage();
 
 private:
     Button* button;

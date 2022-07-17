@@ -1,0 +1,46 @@
+#include "TryPage.h"
+
+
+TryPage::TryPage()
+{
+
+}
+
+void TryPage::createPage()
+{
+
+    QGraphicsPixmapItem* images = new QGraphicsPixmapItem();
+    images -> setPixmap(QPixmap(":/images/image/enem1.png"));
+    images->setPos(100, 100);
+    images->setScale(0.5);
+    scene->addItem(images);
+    images->setTransformOriginPoint( images->boundingRect().width()*0.5/2, images->boundingRect().height()*0.5/2 );
+    images->setRotation(180);
+
+    QGraphicsPixmapItem* images1 = new QGraphicsPixmapItem();
+    images1 -> setPixmap(QPixmap(":/images/image/enem1.png"));
+    //images1->setTransformOriginPoint( images1->boundingRect().width()*0.5/2, images1->boundingRect().height()*0.5/2 );
+    //images1->setRotation(180);
+    images1->setPos(100, 100);
+    images1->setScale(0.5);
+    scene->addItem(images1);
+
+    QGraphicsRectItem* rect = new QGraphicsRectItem();
+    rect->setRect(images->x(),images->y(),images->boundingRect().width()*0.5, images->boundingRect().height()*0.5);
+    scene->addItem(rect);
+
+    QGraphicsRectItem* rect1 = new QGraphicsRectItem();
+    rect1->setRect(images1->x(),images1->y(),images1->boundingRect().width()*0.5, images1->boundingRect().height()*0.5);
+    scene->addItem(rect1);
+
+    QGraphicsRectItem* rect1 = new QGraphicsRectItem();
+    rect1->setRect(images1->boundingRect().width()*0.5/2, images1->boundingRect().height()*0.5/2, 10,10);
+    scene->addItem(rect1);
+
+
+}
+
+TryPage::~TryPage()
+{
+    scene->clear();
+}

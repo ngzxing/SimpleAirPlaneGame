@@ -6,6 +6,13 @@ BuffHealth::BuffHealth(int degree_, double speed, string pic, double scale) : Bu
 
 void BuffHealth::changeOfBuff(QGraphicsItem* collides)
 {
-    *(static_cast<Player*>(collides)->getHealth())+=degree;
-    static_cast<Player*>(collides)->getHealth()->showOnScreen();
+    Player* player = static_cast<Player*>(collides);
+
+    *(player->getHealth())+=degree;
+    player->getHealth()->showOnScreen();
+}
+
+BuffHealth::~BuffHealth()
+{
+
 }

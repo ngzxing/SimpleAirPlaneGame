@@ -20,6 +20,8 @@ public:
     void setTextFont(int x, int y, const QColor& color = "black", int fontSize = 16, string font = "times");
     void showOnScreen();
 
+    virtual ~Status();
+
 private:
     dataType flag;
     string name;

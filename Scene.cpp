@@ -1,14 +1,24 @@
 #include "Scene.h"
 #include "Player.h"
 #include <QFont>
+#include <QLabel>
+#include <QMovie>
+#include <QMediaPlayer>
+
+extern QMediaPlayer* music;
 
 Scene::Scene(QWidget *parent)
 {
-    scene -> setSceneRect(0, 0, 1000, 650);
+    scene -> setSceneRect(0, 0, 1440, 810);
     view->setScene(scene);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setFixedSize(1000, 650);
+    view->setFixedSize(1440, 810);
+
+}
+
+Scene::~Scene()
+{
 
 }
 
@@ -37,6 +47,17 @@ void Scene::addPic(string pic, int x, int y, double scale)
     scene->addItem(images);
 }
 
+void Scene::addAnm(string pic, int x, int y, double width, double height)
+{
+    QLabel *gif_anim = new QLabel();
+    QMovie *movie = new QMovie((":"+pic).c_str());
+    movie->setScaledSize(QSize(width,height));
+    gif_anim->setMovie(movie);
+    movie->start();
+    gif_anim->setGeometry(x, y, width, height);
+    scene->addWidget(gif_anim);
+}
+
 void Scene::addText(string text, int x, int y, const QColor &color, string font, int fontSize)
 {
     QGraphicsTextItem* textItem = new QGraphicsTextItem();
@@ -49,7 +70,6 @@ void Scene::addText(string text, int x, int y, const QColor &color, string font,
 
 void Scene::jumpPage(Button *button, Scene *scene)
 {
-
     QObject::connect(button, SIGNAL(clicked()), scene, SLOT(newPage()));
 }
 
@@ -57,6 +77,8 @@ void Scene::jumpPage(Button *button, Scene *scene)
 
 void Scene::newPage()
 {
+    /*music->stop();
+    delete music;*/
     scene->clear();
     createPage();
 }

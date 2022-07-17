@@ -9,6 +9,7 @@ class LossPage : public Scene{
 public:
     LossPage();
     void createPage();
+    ~LossPage();
 
 private:
     Button* button;

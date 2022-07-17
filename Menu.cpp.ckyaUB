@@ -1,0 +1,26 @@
+#include "Menu.h"
+#include "Game.h"
+#include <QMovie>
+#include <QLabel>
+#include <QLineEdit>
+
+extern Game* game;
+
+Menu::Menu() : Scene(){}
+
+void Menu::createPage()
+{
+
+    button = new Button("Start", 100, 100, 100, 100, "darkCyan", "black", "times", 16);
+    addAnm(":/images/image/intro_scene.gif");
+    scene->addItem(button);
+
+    Scene::jumpPage(button, game);
+}
+
+Menu::~Menu()
+{
+    scene->clear();
+};
+
+

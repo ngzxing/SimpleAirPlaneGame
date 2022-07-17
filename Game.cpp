@@ -12,19 +12,19 @@ Game::Game() : Scene(){}
 
 void Game::createPage()
 {
-    setBackgroundPic("/images/image/Gay_Pride_Flag.png");
-    player = new Player("/images/image/rx.png", 1);
-    player->setPos(500,650 - player->boundingRect().height());
+    addAnm("/images/image/game.gif");
+    player = new Player("/images/image/player.png", 0.25);
+    player->setPos((1440-player->boundingRect().width()*player->getScale())/2,(810-player->boundingRect().height()*player->getScale()));
     scene->addItem(player);
 
-    score->setTextFont(0, 0);
-    score->setPos(0, 0);
+    addPic("/images/image/score_health.png", 0, 0, 0.3);
+    score = new Status<int>("score", 3);
+    score->setTextFont(225, 10, "white", 22);
     score->showOnScreen();
     scene->addItem(score);
 
     Status<int>* health = player->getHealth();
-    health->setTextFont(0, score->boundingRect().height());
-    health->setPos( 0, score->boundingRect().height()+10);
+    health->setTextFont(225,50, "red", 22);
     health->showOnScreen();
     scene->addItem(health);
 
@@ -33,26 +33,45 @@ void Game::createPage()
     connect(timerEnemies, SIGNAL(timeout()), this, SLOT(spawn()));
     timerEnemies->start(5000);
 
+
     timerBuffHealth = new QTimer();
     connect(timerBuffHealth, SIGNAL(timeout()), this, SLOT(callBuffHealth()));
-    timerBuffHealth->start(20000);
+    timerBuffHealth->start(15000);
+
 
     timerBuffVelocity = new QTimer();
     connect(timerBuffVelocity, SIGNAL(timeout()), this, SLOT(callBuffVelocity()));
     timerBuffVelocity->start(20000);
 
+
     timerBuffBullet = new QTimer();
     connect(timerBuffBullet, SIGNAL(timeout()), this, SLOT(callBuffBullet()));
     timerBuffBullet->start(20000);
 
+
     detectTrigger();
+}
+
+Game::~Game()
+{
+    cleanClock();
 }
 
 // difficulty
 void Game::spawn()
 {
+    if(score->getFlag() < 35){
 
-    enemy = Enemies::selectEnemies(1);
+        enemy = Enemies::selectEnemies(1);
+    }
+    else if(score->getFlag() < 65){
+
+        enemy = Enemies::selectEnemies(2);
+    }
+    else if(score->getFlag() < 100){
+
+        enemy = Enemies::selectEnemies(3);
+    }
     scene->addItem(enemy);
     enemy->move();
 
@@ -64,34 +83,51 @@ void Game::spawn()
 
 void Game::callBuffHealth()
 {
-    buffHealth = new BuffHealth(1, 0.1, "/images/image/buffHealth.png", 0.2);
+    buffHealth = new BuffHealth(1+score->getFlag()/20, 0.2 + int(score->getFlag()/20)*0.1, "/images/image/health_buff.png", 0.2);
     scene->addItem(buffHealth);
     buffHealth->move();
     
     timerBuffHealth->stop();
-    timerBuffHealth->start(20000/sqrt(score->getFlag()/ 10 + 1));
+    timerBuffHealth->start(15000/sqrt(score->getFlag()/ 20 + 1));
 
 }
 
 void Game::callBuffVelocity()
 {   
-    buffVelocity = new BuffVelocity(1, 0.1, "/images/image/buffHealth.png", 0.2);
+    buffVelocity = new BuffVelocity(1, 0.3 + int(score->getFlag()/20)*0.1, "/images/image/speed_buff.png", 0.15);
     scene->addItem(buffVelocity);
     buffVelocity->move();
     
-    timerBuffHealth->stop();
-    timerBuffHealth->start(20000/sqrt(score->getFlag()/ 10 + 1));
+    timerBuffVelocity->stop();
+    timerBuffVelocity->start(20000/sqrt(score->getFlag()/ 20 + 1));
     
 }
 
 void Game::callBuffBullet()
 {
-    buffBullet = new BuffBullet(1, 0.1, "/images/image/buffHealth.png", 0.2);
+
+    if(score->getFlag() < 25){
+
+        timerBuffBullet->stop();
+        timerBuffBullet->start(20000/sqrt(score->getFlag()/ 10 + 1));
+        return;
+
+    }
+    else if(score->getFlag() < 55){
+
+        buffBullet = BuffBullet::selectBuffBullet(2);
+    }
+    else if(score->getFlag() < 100){
+
+        buffBullet = BuffBullet::selectBuffBullet(3);
+    }
+
+    buffBullet = BuffBullet::selectBuffBullet(2);
     scene->addItem(buffBullet);
     buffBullet->move();
     
     timerBuffBullet->stop();
-    timerBuffBullet->start(20000/sqrt(score->getFlag()/ 10 + 1));
+    timerBuffBullet->start(2000/sqrt(score->getFlag()/ 10 + 1));
 }
 
 void Game::detectTrigger()
@@ -104,6 +140,7 @@ void Game::detectTrigger()
 void Game::cleanClock()
 {
     scene->clear();
+
     timerBuffHealth->stop();
     delete timerBuffHealth;
     timerBuffBullet->stop();

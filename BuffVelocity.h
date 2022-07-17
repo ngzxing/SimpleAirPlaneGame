@@ -8,6 +8,7 @@ class BuffVelocity : public Buff{
 public:
     BuffVelocity(int degree_, double speed, string pic, double scale);
     void changeOfBuff(QGraphicsItem* collides);
+    ~BuffVelocity();
 };
 
 
