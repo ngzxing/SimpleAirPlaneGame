@@ -4,7 +4,7 @@ using namespace std;
 
 BulletPlayer::BulletPlayer(string pic, int attack_, double speed, double scale_) : FlyingObject(0, speed, pic,scale_)
 {
-    setScale(scale);
+
     attack = new Status<int>("attack", attack_);
 }
 

@@ -6,7 +6,6 @@ Buff::Buff(int degree_, double speed, string pic, double scale) : FlyingObject(0
 
     int randPos = rand()%int(1440-boundingRect().width()*scale);
     setPos(randPos,-1*boundingRect().height()*scale);
-    setScale(scale);
 }
 
 void Buff::movement()

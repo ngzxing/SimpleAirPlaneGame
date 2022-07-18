@@ -134,7 +134,7 @@ void Game::detectTrigger()
 {
     timerGameOver = new QTimer();
     connect(timerGameOver, SIGNAL(timeout()), this, SLOT(JumpByTrigger()) );
-    timerGameOver->start(100);
+    timerGameOver->start(200);
 }
 
 void Game::cleanClock()

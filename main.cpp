@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     lossPage = new LossPage();
     winPage = new WinPage();
 
-    winPage->createPage();
+    menu->createPage();
     Scene::view->show();
 
     return a.exec();
