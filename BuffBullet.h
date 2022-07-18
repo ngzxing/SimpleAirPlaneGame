@@ -6,8 +6,8 @@
 class BuffBullet : public Buff{
 
 public:
-    static BuffBullet *selectBuffBullet(int index);
-    void changeOfBuff(QGraphicsItem* collides);
+    static BuffBullet *selectBuffBullet(int index); //define the selection of different type of buff bullet
+    void changeOfBuff(QGraphicsItem* collides); //define how buffBullet change player's bullet equipped after colliding
     ~BuffBullet();
 
 private:

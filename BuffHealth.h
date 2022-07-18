@@ -8,7 +8,7 @@ class BuffHealth : public Buff{
 
 public:
     BuffHealth(int degree_, double speed, string pic, double scale);
-    void changeOfBuff(QGraphicsItem* collides);
+    void changeOfBuff(QGraphicsItem* collides); //define how buffHealth change player's health status after colliding
     ~BuffHealth();
 };
 

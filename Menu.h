@@ -9,10 +9,10 @@ class Menu: public Scene{
 public:
 
     Menu();
-    void createPage();
+    void createPage(); // define how the page shown
     ~Menu();
 
-    Button* button;
+    Button* button; // composition
 };
 
 #endif // MENU_H

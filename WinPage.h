@@ -8,11 +8,11 @@ class WinPage : public Scene{
 
 public:
     WinPage();
-    void createPage();
+    void createPage(); // define how the page shown
     ~WinPage();
 
 private:
-    Button* button;
+    Button* button; //composition
 
 };
 

@@ -7,15 +7,15 @@
 class BulletEnemies : public FlyingObject{
 
 public:
-    void movement();
-    bool collide();
+    void movement(); //define how it move
+    bool collide(); //define how it behave after collides with player
 
-    static BulletEnemies *selectBullet(int index);
+    static BulletEnemies *selectBullet(int index); //define how to select the specific type of bullet
     ~BulletEnemies();
 
 private:
     BulletEnemies(string pic, int attack_, double speed, double scale_);
-    Status<int>* attack;
+    Status<int>* attack; // composition
 
 };
 

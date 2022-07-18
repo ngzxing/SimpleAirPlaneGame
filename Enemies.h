@@ -11,17 +11,17 @@ class Enemies : public FlyingObject{
 
 public:
 
-    void movement();
-    bool collide();
-    static Enemies* selectEnemies(int index);
+    void movement(); // define how it move
+    bool collide(); // define how it behave after collides with BulletPlayer and Player
+    static Enemies* selectEnemies(int index); // define how to select specific type of enemies
     ~Enemies();
 
 public slots:
-    void emitBullet();
+    void emitBullet(); // define how the enemies emit the BulletEnemies
 
 private:
     Enemies(int life, double speed, string pic, double scale_, double emitTime, int bulletIndex_);
-    BulletEnemies* bullet;
+    BulletEnemies* bullet; // aggregation
     int bulletIndex;
 };
 

@@ -8,11 +8,11 @@ class LossPage : public Scene{
 
 public:
     LossPage();
-    void createPage();
+    void createPage(); // define how the page shown
     ~LossPage();
 
 private:
-    Button* button;
+    Button* button; // composition
 
 };
 

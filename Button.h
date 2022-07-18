@@ -14,18 +14,18 @@ class Button : public QObject, public QGraphicsPixmapItem{
 public:
     Button(string name, string pic1_, string pic2_, double scale, int x, int y, QGraphicsItem* parent = NULL);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event); //define how the button behave after mouse press
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event); //define how the button behave after hover enter
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event); //define how the button behave after hover leave
 
     ~Button();
 
 signals:
 
-    void clicked();
+    void clicked(); //define the signal sended after the Button is clicked
 
 private:
-    QGraphicsTextItem* text;
+    QGraphicsTextItem* text; // composition
     string pic1, pic2;
 
 };

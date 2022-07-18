@@ -8,16 +8,16 @@
 class BulletPlayer : public FlyingObject{
 
 public:
-    void movement();
-    bool collide();
-    Status<int> *getAttack();
+    void movement(); //define how it move
+    bool collide(); //define how it behave after collides with enemies
+    Status<int> *getAttack(); //get attack status
 
-    static BulletPlayer* selectBullet(int index);
+    static BulletPlayer* selectBullet(int index); //define how to select the specific type of bullet
     ~BulletPlayer();
 
 private:
     BulletPlayer(string pic, int attack_, double speed, double scale_);
-    Status<int>* attack;
+    Status<int>* attack; // composition
 };
 
 

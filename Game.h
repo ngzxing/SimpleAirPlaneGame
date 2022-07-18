@@ -18,28 +18,28 @@ class Game : public Scene{
 public:
 
     Game();
-    void createPage();
+    void createPage(); //define how the page shown
     ~Game();
 
 
 public slots:
     // call something out;
-    void spawn();
-    void callBuffHealth();
-    void callBuffVelocity();
-    void callBuffBullet();
-    void JumpByTrigger();
+    void spawn(); //call the routine of release enemies 
+    void callBuffHealth(); //call the routine of release buffHealth
+    void callBuffVelocity(); //call the routine of release buffVelocity
+    void callBuffBullet(); //call the routine of release buffBullet
+    void JumpByTrigger(); //define the page to jump after score>100 or <0 or  health<0
 
 private:
-    void detectTrigger();
-    void cleanClock();
+    void detectTrigger(); //check repeatly whether score>100 or <0 or health<0
+    void cleanClock(); //clear all counting clock
 
-    Enemies* enemy; 
-    BuffHealth* buffHealth;
-    BuffVelocity* buffVelocity;
-    BuffBullet* buffBullet;
-    QTimer* timerEnemies, *timerBuffHealth, *timerBuffVelocity, *timerBuffBullet, *timerGameOver;
-    Player* player;
+    Enemies* enemy; //aggregation
+    BuffHealth* buffHealth; //aggregation
+    BuffVelocity* buffVelocity; //aggregation
+    BuffBullet* buffBullet; //aggregation
+    QTimer* timerEnemies, *timerBuffHealth, *timerBuffVelocity, *timerBuffBullet, *timerGameOver; //composition
+    Player* player; //composition
 
 };
 
