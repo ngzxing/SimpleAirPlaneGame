@@ -127,7 +127,7 @@ void Game::callBuffBullet()
     buffBullet->move();
     
     timerBuffBullet->stop();
-    timerBuffBullet->start(2000/sqrt(score->getFlag()/ 10 + 1));
+    timerBuffBullet->start(20000/sqrt(score->getFlag()/ 10 + 1));
 }
 
 void Game::detectTrigger()
