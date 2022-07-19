@@ -3,7 +3,7 @@
 #include <QString>
 
 extern Status<int>* score;
-Player::Player(string pic, double scale_, QGraphicsItem* parent) : bulletIndex(3), scale(scale_)
+Player::Player(string pic, double scale_, QGraphicsItem* parent) : bulletIndex(1), scale(scale_)
 {
     setPixmap(QPixmap( (":" + pic).c_str() ));
     setScale(scale);
